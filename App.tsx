@@ -66,64 +66,96 @@ export default function App() {
   }
 
   return (
-    <ScrollView contentContainerStyle={styles.scrollContent}>
-      <View style={styles.header}>
-        <Text style={styles.titulo}>Detalhes da Consulta</Text>
-        <Text style={styles.subtitulo}>Paciente: {consulta.paciente.nome}</Text>
-      </View>
-      <View style={styles.card}>
-        <View style={
-          [
+    <View style={styles.container}>
+      <StatusBar style="light" />
+      
+      <ScrollView contentContainerStyle={styles.scrollContent}>
+        {/* Cabeçalho */}
+        <View style={styles.header}>
+          <Text style={styles.titulo}>Sistema de Consultas</Text>
+          <Text style={styles.subtitulo}>Consulta #{consulta.id}</Text>
+        </View>
+
+        {/* Card da Consulta */}
+        <View style={styles.card}>
+          {/* Status Badge */}
+          <View style={[
             styles.statusBadge,
-            consulta.status === "confirmada"
-              ? styles.statusConfirmada
-              : consulta.status === "cancelada"
-              ? styles.statusCancelada
-              : null,
-          ]
-        }>
-          <Text style={styles.statusTexto}>{consulta.status.toUpperCase()}</Text>
-        </View>
-        <View style={styles.secao}>
-          <Text style={styles.label}>Médico</Text>
-          <Text style={styles.valor}>{consulta.medico.nome}</Text>
-          <Text style={styles.info}>Especialidade: {consulta.medico.especialidade.nome}</Text>
-        </View>
-        <View style={styles.secao}>
-          <Text style={styles.label}>Data</Text>
-          <Text style={styles.valor}>{formatarData(consulta.data)}</Text>
-        </View>
-        <View style={styles.secao}>
-          <Text style={styles.label}>Valor</Text>
-          <Text style={styles.valor}>{formatarValor(consulta.valor)}</Text>
-        </View>
-        <View style={styles.secao}>
-          <Text style={styles.label}>Observações</Text>
-          <Text style={styles.observacoes}>{consulta.observacoes}</Text>
-        </View>
-        <View style={styles.acoes}>
-          {consulta.status === "agendada" && (
-            <>
-              <View style={styles.botaoContainer}>
-                <Button title="Confirmar Consulta" color="#2057be" onPress={confirmarConsulta} />
+            consulta.status === "confirmada" && styles.statusConfirmada,
+            consulta.status === "cancelada" && styles.statusCancelada,
+          ]}>
+            <Text style={styles.statusTexto}>{consulta.status.toUpperCase()}</Text>
+          </View>
+
+          {/* Informações do Médico */}
+          <View style={styles.secao}>
+            <Text style={styles.label}>👨‍⚕️ Médico</Text>
+            <Text style={styles.valor}>{consulta.medico.nome}</Text>
+            <Text style={styles.info}>CRM: {consulta.medico.crm}</Text>
+            <Text style={styles.info}>{consulta.medico.especialidade.nome}</Text>
+          </View>
+
+          {/* Informações do Paciente */}
+          <View style={styles.secao}>
+            <Text style={styles.label}>👤 Paciente</Text>
+            <Text style={styles.valor}>{consulta.paciente.nome}</Text>
+            <Text style={styles.info}>CPF: {consulta.paciente.cpf}</Text>
+            <Text style={styles.info}>Email: {consulta.paciente.email}</Text>
+            {consulta.paciente.telefone && (
+              <Text style={styles.info}>Tel: {consulta.paciente.telefone}</Text>
+            )}
+          </View>
+
+          {/* Informações da Consulta */}
+          <View style={styles.secao}>
+            <Text style={styles.label}>📅 Dados da Consulta</Text>
+            <Text style={styles.valor}>Data: {formatarData(consulta.data)}</Text>
+            <Text style={styles.valor}>Valor: {formatarValor(consulta.valor)}</Text>
+            {consulta.observacoes && (
+              <Text style={styles.observacoes}>{consulta.observacoes}</Text>
+            )}
+          </View>
+
+          {/* Botões de Ação */}
+          <View style={styles.acoes}>
+            {consulta.status === "agendada" && (
+              <>
+                <View style={styles.botaoContainer}>
+                  <Button
+                    title="Confirmar Consulta"
+                    onPress={confirmarConsulta}
+                    color="#4CAF50"
+                  />
+                </View>
+                <View style={styles.botaoContainer}>
+                  <Button
+                    title="Cancelar Consulta"
+                    onPress={cancelarConsulta}
+                    color="#F44336"
+                  />
+                </View>
+              </>
+            )}
+            {consulta.status === "confirmada" && (
+              <View style={styles.mensagem}>
+                <Text style={styles.mensagemTexto}>✓ Consulta confirmada com sucesso!</Text>
               </View>
-              <View style={styles.botaoContainer}>
-                <Button title="Cancelar Consulta" color="#F44336" onPress={cancelarConsulta} />
+            )}
+            {consulta.status === "cancelada" && (
+              <View style={styles.mensagemCancelada}>
+                <Text style={styles.mensagemTexto}>✗ Consulta cancelada</Text>
               </View>
-            </>
-          )}
-          {consulta.status === "confirmada" && (
-            <View style={styles.botaoContainer}>
-              <Button title="Cancelar Consulta" color="#F44336" onPress={cancelarConsulta} />
-            </View>
-          )}
+            )}
+          </View>
         </View>
-      </View>
-      <View style={styles.rodape}>
-        <Text style={styles.rodapeTexto}>Sistema de Consultas Médicas - {new Date().getFullYear()}</Text>
-      </View>
-      <StatusBar style="auto" />
-    </ScrollView>
+        {/* Rodapé */}
+        <View style={styles.rodape}>
+          <Text style={styles.rodapeTexto}>
+            Sistema de Consultas Médicas - {new Date().getFullYear()}
+          </Text>
+        </View>
+      </ScrollView>
+    </View>
   );
 }
 
