@@ -47,6 +47,13 @@ export default function App() {
     });
   }
 
+  function cancelarConsulta() {
+    setConsulta({
+      ...consulta,
+      status: "cancelada",
+    });
+  }
+
   function formatarValor(valor: number): string {
     return valor.toLocaleString("pt-BR", {
       style: "currency",
@@ -96,8 +103,18 @@ export default function App() {
         </View>
         <View style={styles.acoes}>
           {consulta.status === "agendada" && (
+            <>
+              <View style={styles.botaoContainer}>
+                <Button title="Confirmar Consulta" color="#2057be" onPress={confirmarConsulta} />
+              </View>
+              <View style={styles.botaoContainer}>
+                <Button title="Cancelar Consulta" color="#F44336" onPress={cancelarConsulta} />
+              </View>
+            </>
+          )}
+          {consulta.status === "confirmada" && (
             <View style={styles.botaoContainer}>
-              <Button title="Confirmar Consulta" color="#79059C" onPress={confirmarConsulta} />
+              <Button title="Cancelar Consulta" color="#F44336" onPress={cancelarConsulta} />
             </View>
           )}
         </View>
@@ -113,7 +130,7 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#79059C",
+    backgroundColor: "#2057be",
   },
   scrollContent: {
     padding: 20,
@@ -172,7 +189,7 @@ const styles = StyleSheet.create({
   label: {
     fontSize: 16,
     fontWeight: "bold",
-    color: "#79059C",
+    color: "#2057be",
     marginBottom: 8,
   },
   valor: {
