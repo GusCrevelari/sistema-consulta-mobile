@@ -89,7 +89,7 @@ export default function App() {
 
           {/* Informações do Médico */}
           <View style={styles.secao}>
-            <Text style={styles.label}>👨‍⚕️ Médico</Text>
+            <Text style={styles.label}>Médico</Text>
             <Text style={styles.valor}>{consulta.medico.nome}</Text>
             <Text style={styles.info}>CRM: {consulta.medico.crm}</Text>
             <Text style={styles.info}>{consulta.medico.especialidade.nome}</Text>
@@ -97,7 +97,7 @@ export default function App() {
 
           {/* Informações do Paciente */}
           <View style={styles.secao}>
-            <Text style={styles.label}>👤 Paciente</Text>
+            <Text style={styles.label}>Paciente</Text>
             <Text style={styles.valor}>{consulta.paciente.nome}</Text>
             <Text style={styles.info}>CPF: {consulta.paciente.cpf}</Text>
             <Text style={styles.info}>Email: {consulta.paciente.email}</Text>
@@ -108,7 +108,7 @@ export default function App() {
 
           {/* Informações da Consulta */}
           <View style={styles.secao}>
-            <Text style={styles.label}>📅 Dados da Consulta</Text>
+            <Text style={styles.label}>Dados da Consulta</Text>
             <Text style={styles.valor}>Data: {formatarData(consulta.data)}</Text>
             <Text style={styles.valor}>Valor: {formatarValor(consulta.valor)}</Text>
             {consulta.observacoes && (
