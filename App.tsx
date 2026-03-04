@@ -56,3 +56,11 @@ const [consulta, setConsulta] = useState<Consulta>({
   status: "agendada",
   observacoes: "Consulta de rotina",
 });
+
+function confirmarConsulta() {
+  setConsulta({
+    ...consulta,
+    status: "confirmada",
+  });
+}
+
