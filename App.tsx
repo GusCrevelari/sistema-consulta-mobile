@@ -1,29 +1,11 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { useState } from "react";
+import { View, Text, StyleSheet, Button, ScrollView } from "react-native";
+import { StatusBar } from "expo-status-bar";
+
 import { Especialidade } from "./src/types/especialidade";
 import { Paciente } from "./src/types/paciente";
 import { Medico } from "./src/interfaces/medico";
 import { Consulta } from "./src/interfaces/consulta";
-import { useState } from 'react';
-
-
-export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
-}
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#9ac8da',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
 
 const cardiologia: Especialidade = {
   id: 1,
@@ -47,30 +29,48 @@ const paciente1: Paciente = {
   telefone: "(11) 98765-4321",
 };
 
-const [consulta, setConsulta] = useState<Consulta>({
-  id: 1,
-  medico: medico1,
-  paciente: paciente1,
-  data: new Date(2026, 2, 10),
-  valor: 350,
-  status: "agendada",
-  observacoes: "Consulta de rotina",
+export default function App() {
+  const [consulta, setConsulta] = useState<Consulta>({
+    id: 1,
+    medico: medico1,
+    paciente: paciente1,
+    data: new Date(2026, 2, 10),
+    valor: 350,
+    status: "agendada",
+    observacoes: "Consulta de rotina",
+  });
+
+  function confirmarConsulta() {
+    setConsulta({
+      ...consulta,
+      status: "confirmada",
+    });
+  }
+
+  function formatarValor(valor: number): string {
+    return valor.toLocaleString("pt-BR", {
+      style: "currency",
+      currency: "BRL",
+    });
+  }
+
+  function formatarData(data: Date): string {
+    return data.toLocaleDateString("pt-BR");
+  }
+
+  return (
+    <View style={styles.container}>
+      <Text>Open up App.tsx to start working on your app!</Text>
+      <StatusBar style="auto" />
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#9ac8da',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
 });
-
-function confirmarConsulta() {
-  setConsulta({
-    ...consulta,
-    status: "confirmada",
-  });
-}
-
-function formatarValor(valor: number): string {
-  return valor.toLocaleString("pt-BR", {
-    style: "currency",
-    currency: "BRL",
-  });
-}
-
-function formatarData(data: Date): string {
-  return data.toLocaleDateString("pt-BR");
-}
