@@ -30,3 +30,11 @@ const cardiologia: Especialidade = {
   nome: "Cardiologia",
   descricao: "Cuidados com o coração",
 };
+
+const medico1: Medico = {
+  id: 1,
+  nome: "Dr. Roberto Silva",
+  crm: "CRM12345",
+  especialidade: cardiologia,
+  ativo: true,
+};
