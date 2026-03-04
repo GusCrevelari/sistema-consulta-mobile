@@ -1,5 +1,11 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
+import { Especialidade } from "./src/types/especialidade";
+import { Paciente } from "./src/types/paciente";
+import { Medico } from "./src/interfaces/medico";
+import { Consulta } from "./src/interfaces/consulta";
+
+
 
 export default function App() {
   return (
@@ -13,8 +19,14 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#9ac8da',
     alignItems: 'center',
     justifyContent: 'center',
   },
 });
+
+const cardiologia: Especialidade = {
+  id: 1,
+  nome: "Cardiologia",
+  descricao: "Cuidados com o coração",
+};
