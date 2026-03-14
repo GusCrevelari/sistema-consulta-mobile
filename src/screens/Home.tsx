@@ -3,8 +3,9 @@ import { View, Text, ScrollView } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import { ConsultaCard } from "../components";
 import { styles } from "../styles/app.styles";
+import { Consulta } from "../interfaces/consulta";
 export default function Home() {
-  const [consulta, setConsulta] = useState({
+  const [consulta, setConsulta] = useState<Consulta>({
     id: 1,
     status: "agendada",
   });
