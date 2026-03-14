@@ -4,23 +4,48 @@ import { StatusBar } from "expo-status-bar";
 import { ConsultaCard } from "../components";
 import { styles } from "../styles/app.styles";
 import { Consulta } from "../interfaces/consulta";
+
 export default function Home() {
   const [consulta, setConsulta] = useState<Consulta>({
     id: 1,
     status: "agendada",
+    medico: {
+      id: 1,
+      nome: "Dr. Roberto Silva",
+      crm: "12345-SP",
+      especialidade: {
+        id: 1,
+        nome: "Cardiologia",
+        descricao: "Especialista em coração",
+      },
+      ativo: true,
+    },
+    paciente: {
+      id: 1,
+      nome: "Carlos Andrade",
+      cpf: "123.456.789-00",
+      email: "carlos@email.com",
+      telefone: "(11) 99999-9999",
+    },
+    data: new Date("2026-03-20"),
+    valor: 350,
+    observacoes: "Paciente com retorno agendado.",
   });
+
   function confirmarConsulta() {
     setConsulta({
       ...consulta,
       status: "confirmada",
     });
   }
+
   function cancelarConsulta() {
     setConsulta({
       ...consulta,
       status: "cancelada",
     });
   }
+
   return (
     <View style={styles.container}>
       <StatusBar style="light" />
@@ -29,6 +54,7 @@ export default function Home() {
           <Text style={styles.titulo}>Sistema de Consultas</Text>
           <Text style={styles.subtitulo}>Consulta #{consulta.id}</Text>
         </View>
+
         <ConsultaCard
           consulta={consulta}
           onConfirmar={confirmarConsulta}
