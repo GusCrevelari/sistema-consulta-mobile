@@ -33,11 +33,12 @@ export default function Home() {
   });
 
   function confirmarConsulta() {
-    setConsulta({
-      ...consulta,
-      status: "confirmada",
-    });
-  }
+  const novaConsulta = {
+    ...consulta,
+    status: "confirmada" as const,
+  };
+  setConsulta(novaConsulta);
+}
 
   function cancelarConsulta() {
     setConsulta({
