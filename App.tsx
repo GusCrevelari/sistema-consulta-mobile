@@ -4,8 +4,10 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Home from "./src/screens/Home";
 import Admin from "./src/screens/Admin";
 import CadastroPaciente from "./src/screens/CadastroPaciente";
-import Agendamento from "./src/screens/Agendamento";
+import Agendamento from "../sistema-consulta-mobile/src/screens/Agendamento";
 import { inicializarDados } from "../sistema-consulta-mobile/src/service/storage";
+
+
 const Stack = createNativeStackNavigator();
 export default function App() {
   // Inicializa dados quando o app carrega

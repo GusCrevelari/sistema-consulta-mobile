@@ -10,7 +10,7 @@ import { obterPacienteLogado } from "../service/storage";
 import { obterConsultas } from "../service/storage";
 import { salvarConsultas } from "../service/storage";
 
-import { Alert } from "react-native";
+import { Alert, ScrollView, Text, TextInput, TouchableOpacity } from "react-native";
 export default function Agendamento({ navigation }: any) {
   const [especialidades, setEspecialidades] = useState<Especialidade[]>([]);
   const [medicos, setMedicos] = useState<Medico[]>([]);
@@ -106,4 +106,81 @@ async function agendarConsulta() {
     console.error("Erro ao agendar:", erro);
     Alert.alert("Erro", "Não foi possível agendar a consulta");
   }
-}}
+}
+
+return (
+  <ScrollView contentContainerStyle={{ padding: 20 }}>
+    <Text style={{ fontSize: 24, fontWeight: "bold", marginBottom: 16 }}>Agendar Consulta</Text>
+    {/* Especialidade */}
+    <Text style={{ fontWeight: "bold", color: "#333", marginBottom: 4 }}>Especialidade</Text>
+    {especialidades.map((esp) => (
+      <TouchableOpacity
+        key={esp.id}
+        style={{
+          backgroundColor: especialidadeSelecionada?.id === esp.id ? "#4CAF50" : "#fff",
+          padding: 12,
+          borderRadius: 8,
+          marginBottom: 8,
+          borderWidth: 1,
+          borderColor: especialidadeSelecionada?.id === esp.id ? "#4CAF50" : "#ccc",
+        }}
+        onPress={() => selecionarEspecialidade(esp)}
+      >
+        <Text style={{ color: especialidadeSelecionada?.id === esp.id ? "#fff" : "#333" }}>{esp.nome}</Text>
+      </TouchableOpacity>
+    ))}
+    {/* Médico */}
+    <Text style={{ fontWeight: "bold", color: "#333", marginBottom: 4, marginTop: 16 }}>Médico</Text>
+    {medicosFiltrados.length === 0 && (
+      <Text style={{ color: "#888", marginBottom: 8 }}>Selecione uma especialidade</Text>
+    )}
+    {medicosFiltrados.map((med) => (
+      <TouchableOpacity
+        key={med.id}
+        style={{
+          backgroundColor: medicoSelecionado?.id === med.id ? "#008d8d" : "#fff",
+          padding: 12,
+          borderRadius: 8,
+          marginBottom: 8,
+          borderWidth: 1,
+          borderColor: medicoSelecionado?.id === med.id ? "#008d8d" : "#ccc",
+        }}
+        onPress={() => setMedicoSelecionado(med)}
+      >
+        <Text style={{ color: medicoSelecionado?.id === med.id ? "#fff" : "#333" }}>{med.nome}</Text>
+      </TouchableOpacity>
+    ))}
+    {/* Data da consulta */}
+    <Text style={{ fontWeight: "bold", color: "#333", marginBottom: 4, marginTop: 16 }}>Data da Consulta</Text>
+    <TextInput
+      placeholder="DD/MM/AAAA"
+      value={dataConsulta}
+      onChangeText={setDataConsulta}
+      style={{
+        backgroundColor: "#fff",
+        borderRadius: 8,
+        padding: 12,
+        fontSize: 16,
+        marginBottom: 16,
+        borderWidth: 1,
+        borderColor: "#ccc",
+      }}
+      keyboardType="numeric"
+      maxLength={10}
+    />
+    <TouchableOpacity
+      style={{
+        backgroundColor: "#4CAF50",
+        padding: 16,
+        borderRadius: 10,
+        marginBottom: 10,
+      }}
+      onPress={agendarConsulta}
+    >
+      <Text style={{ color: "#fff", fontSize: 16, fontWeight: "bold", textAlign: "center" }}>
+        Agendar Consulta
+      </Text>
+    </TouchableOpacity>
+  </ScrollView>
+);
+}
