@@ -5,11 +5,10 @@ import { salvarPacienteLogado } from "../service/storage";
 import { obterPacientes } from "../service/storage";
 import { salvarPacientes } from "../service/storage";
 import type { Paciente } from "../types/paciente";
-
+import { styles } from "../styles/cadastroPaciente.style";
 import { KeyboardAvoidingView, ScrollView, View, Text, TextInput, TouchableOpacity, Platform, Alert } from "react-native";
 import { StatusBar } from "expo-status-bar";
 
-import { styles } from "../styles/app.styles";
 
 
 export default function CadastroPaciente({ navigation }: any) {
