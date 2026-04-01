@@ -1,81 +1,75 @@
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import { Especialidade } from "../types/especialidade";
+import  AsyncStorage  from "@react-native-async-storage/async-storage";
+import type { Especialidade } from "../types/especialidade";
 import { Medico } from "../interfaces/medico";
 import { Consulta } from "../interfaces/consulta";
 
 const KEYS = {
-  ESPECIALIDADES: "@consultas:especialidades",
-  MEDICOS: "@consultas:medicos",
-  CONSULTAS: "@consultas:consultas",
+    ESPECIALIDADES: "@consultas.especialidade",
+    MEDICOS: "@consultas.medicos",
+    CONSULTAS: "@consultas.consultas"
 };
 
-export async function salverEspecialidade(especialidades: Especialidade) {
-    try {
-        await AsyncStorage.setItem(
-            KEYS.ESPECIALIDADES, JSON.stringify(especialidades)
-        );
-    } catch (erro) {
-        console.error("Erro ao salvar especialidade:", erro);
-    }
+export async function salvarEspecialidades(especialidades: Especialidade[]) {
+  try {
+    await AsyncStorage.setItem(
+      KEYS.ESPECIALIDADES,
+      JSON.stringify(especialidades)
+    );
+  } catch (erro) {
+    console.error("Erro ao salvar: ", erro);
+  }
 }
 
-export async function obterEspecialidades() : Promise<Especialidade[]> {
+export async function obterEspecialidades(): Promise<Especialidade[]> {
     try {
         const dados = await AsyncStorage.getItem(KEYS.ESPECIALIDADES);
         return dados ? JSON.parse(dados) : [];
     } catch (erro) {
-        console.error("Erro ao obter especialidades:", erro);
+        console.error("Erro ao obter: ", erro);
         return [];
-
     }
 }
 
-export async function salvarMedico(medicos: Medico[]) {
+export async function salvarMedicos(medicos: Medico[]) {
     try {
-        await AsyncStorage.setItem(
-            KEYS.MEDICOS, JSON.stringify(medicos)
-        );
+        await AsyncStorage.setItem(KEYS.MEDICOS, JSON.stringify(medicos));
     } catch (erro) {
-        console.error("Erro ao salvar médico:", erro);
+        console.error("Erro ao salvar: ", erro);
     }
 }
 
-export async function obterMedicos() : Promise<Medico[]> {
+export async function obterMedicos(): Promise<Medico[]> {
     try {
-        const dados = await AsyncStorage.getItem(KEYS.MEDICOS);
+        const dados = await AsyncStorage.getItem(KEYS.ESPECIALIDADES);
         return dados ? JSON.parse(dados) : [];
     } catch (erro) {
-        console.error("Erro ao obter médicos:", erro);
+        console.error("Erro ao obter: ", erro);
         return [];
     }
 }
 
-
-export async function salvarConsulta(consultas: Consulta[]) {
-    try {
-        await AsyncStorage.setItem(
-            KEYS.CONSULTAS, JSON.stringify(consultas)
-        );
-    } catch (erro) {
-        console.error("Erro ao salvar consulta:", erro);
-    }
+export async function salvarConsultas(consultas: Consulta[]) {
+  try {
+    await AsyncStorage.setItem(KEYS.CONSULTAS, JSON.stringify(consultas));
+  } catch (erro) {
+    console.error("Erro ao salvar: ", erro);
+  }
 }
 
-export async function obterConsultas() : Promise<Consulta[]> {
-    try {
-        const dados = await AsyncStorage.getItem(KEYS.CONSULTAS);
-
+export async function obterConsultas(): Promise<Consulta[]> {
+  try {
+    const dados = await AsyncStorage.getItem(KEYS.CONSULTAS);
     if (dados) {
-        const consultas: Consulta[] = JSON.parse(dados);
-        // Converter as strings de data para objetos Date
-        return consultas.map(consulta => ({
-            ...consulta,
-            data: consulta.data ? new Date(consulta.data) : undefined,
-        }));
+      const consultas = JSON.parse(dados);
+      // Reconverte strings de data para objetos Date
+      return consultas.map((c: any) => ({
+        ...c,
+        data: new Date(c.data),
+      }));
     }
-        return dados ? JSON.parse(dados) : [];
-    } catch (erro) {
-        console.error("Erro ao obter consultas:", erro);
-        return [];
-    }
+    return [];
+  } catch (erro) {
+    console.error("Erro ao obter: ", erro);
+    return [];
+  }
 }
