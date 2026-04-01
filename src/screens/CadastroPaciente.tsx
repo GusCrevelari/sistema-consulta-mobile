@@ -1,5 +1,16 @@
 import { useState } from "react";
 import { useEffect } from "react";
+import { obterPacienteLogado } from "../service/storage";
+import { salvarPacienteLogado } from "../service/storage";
+import { obterPacientes } from "../service/storage";
+import { salvarPacientes } from "../service/storage";
+
+import { Alert } from "react-native";
+import { KeyboardAvoidingView, ScrollView, View, Text, TextInput, TouchableOpacity, Platform, Alert } from "react-native";
+import { StatusBar } from "expo-status-bar";
+
+import { styles } from "../styles/app.styles";
+
 
 export default function CadastroPaciente({ navigation }: any) {
   const [cpf, setCpf] = useState("");
