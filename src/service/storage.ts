@@ -6,7 +6,9 @@ import { Consulta } from "../interfaces/consulta";
 const KEYS = {
     ESPECIALIDADES: "@consultas.especialidade",
     MEDICOS: "@consultas.medicos",
-    CONSULTAS: "@consultas.consultas"
+    CONSULTAS: "@consultas.consultas",
+    PACIENTE_LOGADO: "@consultas.pacienteLogado",
+    PACIENTES: "@consultas.pacientes",
 };
 
 export async function salvarEspecialidades(especialidades: Especialidade[]) {
