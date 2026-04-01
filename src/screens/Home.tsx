@@ -35,7 +35,7 @@ export default function Home({ navigation }: any) {
   // Carrega consultas do paciente
   const todasConsultas = await obterConsultas();
   const consultasDoPaciente = todasConsultas.filter(
-    (c) => c.paciente.id === paciente.id
+    (c) => c.paciente && c.paciente.id === paciente.id
   );
   setConsultas(consultasDoPaciente);
 }
@@ -140,11 +140,11 @@ return (
       ) : (
         consultas.map((consulta) => (
           <ConsultaCard
-            key={consulta.id}
-            consulta={consulta}
-            onConfirmar={confirmarConsulta}
-            onCancelar={cancelarConsulta}
-          />
+  key={consulta.id}
+  consulta={consulta}
+  onConfirmar={() => confirmarConsulta(consulta.id)}
+  onCancelar={() => cancelarConsulta(consulta.id)}
+/>
         ))
       )}
     </ScrollView>

@@ -23,4 +23,16 @@ export const styles = StyleSheet.create({
     color: "#fff",
     opacity: 0.9,
   },
+  icone: {
+    fontSize: 40,
+    color: '#fff',
+    fontWeight: 'bold',
+    marginBottom: 8,
+  },
+  form: {
+    backgroundColor: 'rgba(255,255,255,0.08)',
+    borderRadius: 16,
+    padding: 20,
+    marginBottom: 24,
+  },
 });

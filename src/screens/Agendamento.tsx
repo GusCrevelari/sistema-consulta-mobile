@@ -1,6 +1,16 @@
 import { useState } from "react";
 import { useEffect } from "react";
 
+import type { Especialidade } from "../types/especialidade";
+import type { Medico } from "../interfaces/medico";
+import type { Consulta } from "../interfaces/consulta";
+import { obterEspecialidades } from "../service/storage";
+import { obterMedicos } from "../service/storage";
+import { obterPacienteLogado } from "../service/storage";
+import { obterConsultas } from "../service/storage";
+import { salvarConsultas } from "../service/storage";
+
+import { Alert } from "react-native";
 export default function Agendamento({ navigation }: any) {
   const [especialidades, setEspecialidades] = useState<Especialidade[]>([]);
   const [medicos, setMedicos] = useState<Medico[]>([]);
@@ -96,4 +106,4 @@ async function agendarConsulta() {
     console.error("Erro ao agendar:", erro);
     Alert.alert("Erro", "Não foi possível agendar a consulta");
   }
-}
+}}

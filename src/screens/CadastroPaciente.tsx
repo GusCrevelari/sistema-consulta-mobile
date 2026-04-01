@@ -4,8 +4,8 @@ import { obterPacienteLogado } from "../service/storage";
 import { salvarPacienteLogado } from "../service/storage";
 import { obterPacientes } from "../service/storage";
 import { salvarPacientes } from "../service/storage";
+import type { Paciente } from "../types/paciente";
 
-import { Alert } from "react-native";
 import { KeyboardAvoidingView, ScrollView, View, Text, TextInput, TouchableOpacity, Platform, Alert } from "react-native";
 import { StatusBar } from "expo-status-bar";
 
@@ -259,3 +259,4 @@ return (
     </ScrollView>
   </KeyboardAvoidingView>
 );
+}
