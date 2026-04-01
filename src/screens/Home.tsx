@@ -109,3 +109,74 @@ export default function Home() {
     </View>
   );
 }
+
+export default function Home({ navigation }: any) {
+  const [consultas, setConsultas] = useState<Consulta[]>([]);
+  const [nomePaciente, setNomePaciente] = useState("");
+  // Carrega dados sempre que a tela ganhar foco
+  useFocusEffect(
+    React.useCallback(() => {
+      carregarDados();
+    }, [])
+  );
+
+  async function carregarDados() {
+  // Verifica se há paciente logado
+  const paciente = await obterPacienteLogado();
+  if (!paciente) {
+    // Se não houver, redireciona para login
+    navigation.replace("Login");
+    return;
+  }
+  setNomePaciente(paciente.nome);
+  // Carrega consultas do paciente
+  const todasConsultas = await obterConsultas();
+  const consultasDoPaciente = todasConsultas.filter(
+    (c) => c.paciente.id === paciente.id
+  );
+  setConsultas(consultasDoPaciente);
+}
+
+async function confirmarConsulta(consultaId: number) {
+  // Atualiza estado local
+  const consultasAtualizadas = consultas.map((c) =>
+    c.id === consultaId ? { ...c, status: "confirmada" as const } : c
+  );
+  setConsultas(consultasAtualizadas);
+  
+  // Atualiza todas as consultas no storage
+  const todasConsultas = await obterConsultas();
+  const consultasAtualizadasCompletas = todasConsultas.map((c) =>
+    c.id === consultaId ? { ...c, status: "confirmada" as const } : c
+  );
+  await salvarConsultas(consultasAtualizadasCompletas);
+}
+async function cancelarConsulta(consultaId: number) {
+  // Atualiza estado local
+  const consultasAtualizadas = consultas.map((c) =>
+    c.id === consultaId ? { ...c, status: "cancelada" as const } : c
+  );
+  setConsultas(consultasAtualizadas);
+  
+  // Atualiza todas as consultas no storage
+  const todasConsultas = await obterConsultas();
+  const consultasAtualizadasCompletas = todasConsultas.map((c) =>
+    c.id === consultaId ? { ...c, status: "cancelada" as const } : c
+  );
+  await salvarConsultas(consultasAtualizadasCompletas);
+}
+
+async function handleLogout() {
+  Alert.alert("Sair", "Deseja realmente sair da sua conta?", [
+    { text: "Cancelar", style: "cancel" },
+    {
+      text: "Sair",
+      onPress: async () => {
+        console.log("Fazendo logout...");
+        await removerPacienteLogado();
+        console.log("Paciente removido, navegando para Login");
+        navigation.replace("Login");
+      },
+    },
+  ]);
+}
