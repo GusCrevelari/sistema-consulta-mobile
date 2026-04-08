@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, ScrollView, Button, Alert } from "react-native";
+import { View, Text, ScrollView, Button } from "react-native";
 import { StatusBar } from "expo-status-bar";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Consulta } from "../interfaces/consulta";
 import { ConsultaCard } from "../components";
-import { styles } from "../styles/app.styles";
+import { styles } from "../styles/home.styles";
 import { obterConsultas, salvarConsultas } from "../services/storage";
 
 export default function Home({ navigation }: any) {
@@ -47,8 +46,8 @@ export default function Home({ navigation }: any) {
         </View>
 
         {consultas.length === 0 ? (
-          <View style={{ padding: 20, alignItems: "center" }}>
-            <Text style={{ color: "#666", marginBottom: 20 }}>
+          <View style={styles.emptyContainer}>
+            <Text style={styles.emptyText}>
               Nenhuma consulta agendada ainda
             </Text>
             <Button
