@@ -20,7 +20,7 @@ export const styles = StyleSheet.create({
     backgroundColor: "#f0f0f0",
   },
   filtroAtivo: {
-    backgroundColor: "#79059C",
+    backgroundColor: "#9d2ac0",
   },
   filtroTexto: {
     fontSize: 14,
